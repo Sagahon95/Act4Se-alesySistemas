@@ -39,3 +39,20 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+# Calcular la FFT
+N = len(modulada)              # Número de muestras
+fft_modulada = np.fft.fft(modulada)
+fft_modulada = np.abs(fft_modulada) / N  # Magnitud normalizada
+
+# Crear eje de frecuencias
+freq = np.fft.fftfreq(N, 1/fs)
+
+# Graficar solo la mitad positiva (por simetría)
+plt.figure(figsize=(10,4))
+plt.plot(freq[:N//2], fft_modulada[:N//2])
+plt.title('Espectro de la señal modulada (AM)')
+plt.xlabel('Frecuencia [Hz]')
+plt.ylabel('Magnitud')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
