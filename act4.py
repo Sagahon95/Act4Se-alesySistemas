@@ -56,3 +56,32 @@ plt.ylabel('Magnitud')
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# Importar librería para ruido
+from numpy.random import normal
+
+# Parámetros de ruido
+SNR_dB = 10  # Relación señal a ruido en decibelios
+
+# Potencia señal modulada
+pot_signal = np.mean(modulada**2)
+
+# Calcular potencia ruido para el SNR deseado
+SNR = 10**(SNR_dB / 10)
+pot_noise = pot_signal / SNR
+
+# Generar ruido gaussiano blanco
+ruido = np.sqrt(pot_noise) * normal(0, 1, len(modulada))
+
+# Señal modulada con ruido
+modulada_ruido = modulada + ruido
+
+# Graficar señal modulada con ruido
+plt.figure(figsize=(10,4))
+plt.plot(t[:1000], modulada_ruido[:1000])
+plt.title(f'Señal Modulada con Ruido (SNR = {SNR_dB} dB)')
+plt.xlabel('Tiempo [s]')
+plt.ylabel('Amplitud')
+plt.grid(True)
+plt.tight_layout()
+plt.show()
